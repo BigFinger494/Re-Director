@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Shikimori Re:Director",
+  "description": "Redirect to anixart after clicking 'Watch Online' in shikimori",
+  "version": "0.1",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "page_action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://shikimori.one/*"
+      ],
+      "js": [
+        "Content.js"
+      ]
+    }
+  ]
+}
