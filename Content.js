@@ -25,9 +25,10 @@ const callback = async () => {
     /https:\/\/shikimori\.one\/animes\/(z?\d+)/
   )[1];
 
+  await sleepUntil(() => document.querySelector(".c-info-right"), 60 * 1000);
+
   let originalName = document
-    .getElementsByClassName("l-page")[0]
-    .getElementsByTagName("meta")[0].content;
+    .getElementsByClassName("b-separator")[0].parentElement.textContent.split(' / ')[1]
 
   const button = document.createElement("a");
   button.classList.add("b-link_button", "dark");
@@ -45,7 +46,6 @@ const callback = async () => {
   watchOnline.classList.add("watch-online");
   watchOnline.appendChild(line);
 
-  await sleepUntil(() => document.querySelector(".c-info-right"), 60 * 1000);
   let infoBlock = document.getElementsByClassName("c-info-right")[0];
   infoBlock.appendChild(watchOnline);
 };
