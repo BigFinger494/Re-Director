@@ -22,7 +22,8 @@
       ],
       "js": [
         "Content.js"
-      ]
+      ],
+      "run_at": "document_end"
     }
   ]
 }
