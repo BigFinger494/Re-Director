@@ -18,11 +18,11 @@ async function sleepUntil(f, timeoutMs) {
 
 const callback = async () => {
   let currentLocation = window.location.href;
-  if (!/https:\/\/shikimori\.one\/animes\/(z?\d+)/.test(currentLocation)) {
+  if (!/https:\/\/shikimori\.one\/animes\/z?(\d+)/.test(currentLocation)) {
     return;
   }
   let titleId = currentLocation.match(
-    /https:\/\/shikimori\.one\/animes\/(z?\d+)/
+    /https:\/\/shikimori\.one\/animes\/z?(\d+)/
   )[1];
 
   await sleepUntil(() => document.querySelector(".c-info-right"), 60 * 1000);
@@ -33,7 +33,7 @@ const callback = async () => {
   const button = document.createElement("a");
   button.classList.add("b-link_button", "dark");
   button.id = "reDirector";
-  button.href = `https://aniu.ru/search/?q=${originalName}`;
+  button.href = `https://aniu.ru/anime/s${titleId}`;
   button.target = "_blank";
   button.title = "Aniu";
   button.textContent = "Re:Director";
