@@ -17,6 +17,9 @@ async function sleepUntil(f, timeoutMs) {
 }
 
 const callback = async () => {
+  if(document.getElementById('reDirector')){
+    return
+  }
   let currentLocation = window.location.href;
   if (!/https:\/\/shikimori\.one\/animes\/z?(\d+)/.test(currentLocation)) {
     return;
@@ -33,7 +36,7 @@ const callback = async () => {
   const button = document.createElement("a");
   button.classList.add("b-link_button", "dark");
   button.id = "reDirector";
-  button.href = `https://aniu.ru/anime/s${titleId}`;
+  button.href = `https://aniu.ru/anime/s${titleId}#player`;
   button.target = "_blank";
   button.title = "Aniu";
   button.textContent = "Re:Director";
