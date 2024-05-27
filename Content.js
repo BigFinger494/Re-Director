@@ -1,3 +1,4 @@
+
 async function sleepUntil(f, timeoutMs) {
   return new Promise((resolve, reject) => {
     let timeWas = new Date();
@@ -15,23 +16,26 @@ async function sleepUntil(f, timeoutMs) {
     }, 20);
   });
 }
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 
 const callback = async () => {
-  if(document.getElementById('reDirector')){
-    return
+
+  let oldButtons = document.getElementsByClassName("watch-online");
+  console.log(oldButtons)
+  for (let i = 0; i < oldButtons.length; i++) {
+    oldButtons[i].remove();
   }
+  console.log("Old buttons removed")
+
   let currentLocation = window.location.href;
   if (!/https:\/\/shikimori\.one\/animes\/z?(\d+)/.test(currentLocation)) {
+    console.log("wrong url")
     return;
   }
   let titleId = currentLocation.match(
     /https:\/\/shikimori\.one\/animes\/z?(\d+)/
   )[1];
-
-  await sleepUntil(() => document.querySelector(".c-info-right"), 60 * 1000);
-
-  let originalName = document
-    .getElementsByClassName("b-separator")[0].parentElement.textContent.split(' / ')[1]
 
   const button = document.createElement("a");
   button.classList.add("b-link_button", "dark");
@@ -49,15 +53,31 @@ const callback = async () => {
   watchOnline.classList.add("watch-online");
   watchOnline.appendChild(line);
 
+  await sleepUntil(() => document.querySelector(".c-info-right"), 60 * 1000);
   let infoBlock = document.getElementsByClassName("c-info-right")[0];
   infoBlock.appendChild(watchOnline);
-};
+
+  console.log("button added")
+
+  await sleep(500);
+  if (document.getElementById('reDirector')) {
+    console.log("button exists")
+    return
+  } 
+  else {
+    callback();
+  }
+}
+
 
 let lastUrl;
+
 new MutationObserver(() => {
   const url = location.href;
   if (url !== lastUrl) {
+    console.log("url changed from: " + url + " to: " + lastUrl)
     lastUrl = url;
     callback();
+
   }
 }).observe(document, { subtree: true, childList: true });
